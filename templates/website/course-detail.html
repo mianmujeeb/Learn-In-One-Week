@@ -1,0 +1,81 @@
+{% extends 'website/base.html' %} {% load static %}
+
+
+{% block title %} Course Detail {% endblock title %}
+
+
+
+{% block body %}
+
+<!--=====================================-->
+<!--=       Breadcrumb Area Start       =-->
+<!--=====================================-->
+<div class="breadcrum-area breadcrumb-banner" style="margin-top: -200px">
+    <div class="container">
+        <div class="section-heading heading-left" data-sal="slide-right" data-sal-duration="1000" data-sal-delay="300">
+            <h1 class="title h2">Course Title</h1>
+            <p>We are offering some best courses in town</p>
+        </div>
+        <div class="banner-thumbnail" data-sal="slide-up" data-sal-duration="1000" data-sal-delay="400">
+            <img class="paralax-image" src="{% static  'website/media/banner/.png' %}" alt="">
+        </div>
+    </div>
+    <ul class="shape-group-8 list-unstyled">
+        <li class="shape shape-2" data-sal="slide-left" data-sal-duration="500" data-sal-delay="200"
+            style="margin-top: -200px">
+            <img src="{% static  'website/media/others/bubble-21.png' %}" alt="Bubble">
+        </li>
+        <li class="shape shape-3" data-sal="slide-up" data-sal-duration="500" data-sal-delay="300">
+            <img src="{% static  'website/media/others/line-4.png' %}" alt="Line">
+        </li>
+    </ul>
+</div>
+
+
+
+<!--=====================================-->
+<!--=        Services Area Start         =-->
+<!--=====================================-->
+<div class="service-scroll-navigation-area">
+    <!-- Design Service -->
+    <div class="section section-padding" id="section1">
+        <div class="container">
+            <div class="row">
+
+                <p>Vivamus suscipit tortor eget felis porttitor volutpat. Cras ultricies ligula sed magna dictum porta.
+                    Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Curabitur non nulla sit amet nisl
+                    tempus convallis quis ac lectus. Curabitur aliquet quam id dui posuere blandit. Curabitur non nulla
+                    sit amet nisl tempus convallis quis ac lectus. Curabitur arcu erat, accumsan id imperdiet et,
+                    porttitor at sem. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Pellentesque in
+                    ipsum id orci porta dapibus. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
+                </p>
+
+                <p>
+                    Curabitur non nulla sit amet nisl
+                    tempus convallis quis ac lectus. Curabitur aliquet quam id dui posuere blandit. Curabitur non nulla
+                    sit amet nisl tempus convallis quis ac lectus. Curabitur arcu erat, accumsan id imperdiet et,
+                    porttitor at sem.
+                </p>
+
+                <p>
+                    Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Proin eget tortor risus.
+                    Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem.
+                </p>
+
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla porttitor accumsan tincidunt. Vivamus
+                    suscipit tortor eget felis porttitor volutpat. Curabitur arcu erat, accumsan id imperdiet et,
+                    porttitor at sem. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Sed porttitor
+                    lectus nibh. Donec sollicitudin molestie malesuada. Praesent sapien massa, convallis a pellentesque
+                    nec, egestas non nisi. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
+                    Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    {% endblock body %}

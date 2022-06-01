@@ -1,0 +1,97 @@
+{% extends 'website/base.html' %} {% load static %}
+
+
+{% block title %} Courses {% endblock title %}
+
+
+
+{% block body %}
+
+<!--=====================================-->
+<!--=       Breadcrumb Area Start       =-->
+<!--=====================================-->
+<div class="breadcrum-area breadcrumb-banner" style="margin-top: -200px">
+    <div class="container">
+        <div class="section-heading heading-left" data-sal="slide-right" data-sal-duration="1000" data-sal-delay="300">
+            <h1 class="title h2">Our Courses</h1>
+            <p>We are offering some of the best courses in town</p>
+        </div>
+        <div class="banner-thumbnail" data-sal="slide-up" data-sal-duration="1000" data-sal-delay="400">
+            <img class="paralax-image" src="{% static  'website/media/banner/.png' %}" alt="">
+        </div>
+    </div>
+    <ul class="shape-group-8 list-unstyled">
+        <li class="shape shape-2" data-sal="slide-left" data-sal-duration="500" data-sal-delay="200"
+            style="margin-top: -200px">
+            <img src="{% static  'website/media/others/bubble-21.png' %}" alt="Bubble">
+        </li>
+        <li class="shape shape-3" data-sal="slide-up" data-sal-duration="500" data-sal-delay="300"
+            style="margin-top: -200px">
+            <img src="{% static  'website/media/others/line-4.png' %}" alt="Line">
+        </li>
+    </ul>
+</div>
+
+
+<!--=====================================-->
+<!--=       Courses  Area Start        =-->
+<!--=====================================-->
+<section class="section section-padding-equal pt--200 pt_md--80 pt_sm--60 bg-light">
+    <div class="container">
+        <div class="axil-isotope-wrapper">
+            <div class="isotope-button isotope-project-btn">
+
+                <button data-filter="*" class="is-checked"><span class="filter-text">All Courses</span></button>
+                {% for i in courses_categories %}
+
+                <button data-filter=".{{i.id}}"><span class="filter-text">{{i.name}}</span></button>
+
+                {% endfor %}
+
+            </div>
+
+            <div class="row row-35 isotope-list">
+
+                {% for i in courses %}
+                <div class="col-md-4 project {{i.category.id}}">
+                    {% if forloop.counter == 1 %}
+                    <div class="pricing-table active pricing-">
+                        {% else %}
+                        <div class="pricing-table pricing-">
+                            {% endif %}
+                            <div class="pricing-header">
+                                <h3 class="title">{{i.name}}</h3>
+                                <div class="price-wrap">
+                                    <div class="yearly-pricing">
+                                        <span class="amount mb-4">${{i.price_manual}}</span>
+                                        <span class="duration mb-4">/Manual</span>
+                                        <br>
+                                        <span class="amount">${{i.price_auto}}</span>
+                                        <span class="duration">/Auto</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pricing-body" style="height:500px; overflow: scroll; padding: 10px 10px">
+                                <p class="detail">
+                                    {{i.description|safe}}
+                                </p>
+
+                            </div>
+                            <div class="pricing-btn text-center mt-3">
+                                <a href="#" class="axil-btn btn-fill-red btn-sm btn-borderd">Pay
+                                    {{i.advance_deposit}} to start</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+</section>
+
+
+
+
+
+{% endblock body %}

@@ -1,0 +1,78 @@
+{% extends 'website/base.html' %} {% load static %}
+
+
+{% block title %} Our Territories {% endblock title %}
+
+
+
+{% block body %}
+
+<!--=====================================-->
+<!--=       Breadcrumb Area Start       =-->
+<!--=====================================-->
+<div class="breadcrum-area breadcrumb-banner" style="margin-top: -200px">
+    <div class="container">
+        <div class="section-heading heading-left" data-sal="slide-right" data-sal-duration="1000" data-sal-delay="300">
+            <h1 class="title h2">Our Territories</h1>
+            <p>Find a One Week Intensive Driving Course Near You</p>
+        </div>
+        <div class="banner-thumbnail" data-sal="slide-up" data-sal-duration="1000" data-sal-delay="400">
+            <img class="paralax-image" src="{% static  'website/media/banner/.png' %}" alt="">
+        </div>
+    </div>
+    <ul class="shape-group-8 list-unstyled">
+        <li class="shape shape-2" data-sal="slide-left" data-sal-duration="500" data-sal-delay="200"
+            style="margin-top: -200px">
+            <img src="{% static  'website/media/others/bubble-21.png' %}" alt="Bubble">
+        </li>
+        <li class="shape shape-3" data-sal="slide-up" data-sal-duration="500" data-sal-delay="300"
+            style="margin-top: -200px">
+            <img src="{% static  'website/media/others/line-4.png' %}" alt="Line">
+        </li>
+    </ul>
+</div>
+
+
+<!--=====================================-->
+<!--=        Territories Area Start         =-->
+<!--=====================================-->
+<section class="section section-padding">
+    <div class="container">
+        <div class="row">
+
+            {% for i in territories %}
+            <div class="col-lg-4" data-sal="slide-up" data-sal-duration="800" data-sal-delay="100">
+                <div class="pricing-table pricing-borderd">
+                    <div class="pricing-header">
+                        <h3 class="title">{{i.name}}</h3>
+                        <span class="subtitle">The main cities that we cover in {{i.name}} are</span>
+                    </div>
+                    <div class="pricing-body">
+                        <ul class="list-unstyled">
+
+                            {% for j in cities %}
+
+                            {% if j.coverage_area.id == i.id %}
+                            <li>{{j.name}}</li>
+                            {% endif %}
+
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+    <ul class="shape-group-3 list-unstyled">
+        <li class="shape shape-2"><img src="{% static 'website/media/others/bubble-4.png' %}" alt="shape"></li>
+    </ul>
+</section>
+
+
+
+
+
+{% endblock body %}
