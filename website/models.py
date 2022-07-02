@@ -1,5 +1,6 @@
 from django.db import models
 from ckeditor.fields import RichTextField
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -198,18 +199,37 @@ class WhyUs(models.Model):
 
     def __str__(self):
         return self.title
-
-
-
-class Stats(models.Model):
-    years_of_operation = models.IntegerField()
-    students = models.IntegerField()
-    instructors = models.IntegerField()
+    
+    
+class WhyJoinUs(models.Model):
+    
+    title = models.CharField(max_length=150)
 
     class Meta:
 
-        verbose_name = 'Stats'
-        verbose_name_plural = 'Stats'
+        verbose_name = 'Why Join Us'
+        verbose_name_plural = 'Why Join Us'
+
+    def __str__(self):
+        return self.title
+
+
+
+
+class Benifit(models.Model):
+    title = models.CharField(max_length=300)
+    description = models.TextField()
+    icon = models.ImageField(upload_to='Benifits')
+
+
+    class Meta:
+        verbose_name = 'Benifit'
+        verbose_name_plural = 'Benifits'
+
+    def __str__(self):
+        return self.title
+
+
 
 
 
@@ -226,12 +246,18 @@ class Instructor(models.Model):
         (1, 'Manual'),
         (2, 'Automatic'),
     )
+    STATUS_CHOICES = (
+        (1, 'Unapproved'),
+        (2, 'Approved'),
+    )
     
+    status = models.IntegerField(choices=STATUS_CHOICES, default=1)
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
     phone_number = models.CharField(max_length=150)
     email = models.EmailField()
     license_number = models.CharField(max_length=150)
+    issue_date = models.DateField()
     years_of_experience = models.IntegerField()
     adi_number = models.CharField(max_length=250)
     adi_expiry_date = models.DateField()
@@ -246,6 +272,7 @@ class Instructor(models.Model):
     zip_code = models.CharField(max_length=150)
     country = models.CharField(max_length=150)
     image = models.ImageField(upload_to='Instructors')
+    auth_login = models.OneToOneField(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='auth_login')
 
     class Meta:
 
@@ -253,7 +280,7 @@ class Instructor(models.Model):
         verbose_name_plural = 'Instructors'
 
     def __str__(self):
-        return self.name
+        return self.first_name + ' ' + self.last_name
     
     
 

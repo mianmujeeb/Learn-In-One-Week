@@ -18,18 +18,18 @@
                 <div class="banner-content" data-sal="slide-up" data-sal-duration="1000" data-sal-delay="100">
                     <h1 class="title">Intensive Driving Courses</h1>
                     <span class="subtitle">Get your licence in matter of days as opposed to months</span>
-                    <a href="#" class="axil-btn btn-fill-red btn-large">Book Now</a>
+                    <a href="{% url 'website:booking' %}" class="axil-btn btn-fill-red btn-large">Book Now</a>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="banner-thumbnail">
                     <div class="large-thumb" data-sal="zoom-in" data-sal-duration="800" data-sal-delay="300">
-                        <img src="{% static 'website/media/banner/car.png' %}" alt="car" style="max-height: 600px">
+                        <img src="{% static 'website/media/banner/car.png' %}" alt="car">
                     </div>
                     <ul class="list-unstyled shape-group">
                         <li class="shape shape-1" data-sal="slide-left" data-sal-duration="500" data-sal-delay="800">
                             <img src="{% static 'website/media/banner/license.png' %}" alt="license"
-                                style="max-height: 120px">
+                                style="max-height:150px">
                         </li>
                     </ul>
                 </div>
@@ -90,6 +90,42 @@
         </li>
         <li class="shape shape-2"><img src="{% static 'website/media/others/line-4.png' %}" alt="line"></li>
         <li class="shape shape-3"><img src="{% static 'website/media/others/line-5.png' %}" alt="line"></li>
+    </ul>
+</section>
+
+<!--=====================================-->
+<!--=        Benifits` Area Start         =-->
+<!--=====================================-->
+<section class="section section-padding">
+    <div class="container">
+        <div class="section-heading heading-left mb--20 mb_md--70">
+            <span class="subtitle">Benifits</span>
+            <h2 class="title">The Benifits of One Week <br> Driving Course</h2>
+        </div>
+        <div class="row">
+
+            {% for i in benifits %}
+
+            <div class="col-lg-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="100">
+                <div class="services-grid service-style-2">
+                    <div class="thumbnail">
+                        <img src="{{i.icon.url}}" alt="icon">
+                    </div>
+                    <div class="content">
+                        <h5 class="title"> <a>{{i.title}}</a></h5>
+                        <p>{{i.description}}</p>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+    <ul class="shape-group-7 list-unstyled">
+        <li class="shape shape-1"><img src="{% static 'website/media/others/circle-2.png' %} " alt="circle"></li>
+        <li class="shape shape-2"><img src="{% static 'website/media/others/bubble-2.png' %} " alt="Line"></li>
+        <li class="shape shape-3"><img src="{% static 'website/media/others/bubble-1.png' %} " alt="Line"></li>
     </ul>
 </section>
 
@@ -215,6 +251,29 @@
     </ul>
 </section>
 
+
+<!--=====================================-->
+<!--=     Call To Action Area Start     =-->
+<!--=====================================-->
+<section class="section call-to-action-area">
+    <div class="container">
+        <div class="call-to-action">
+            <div class="section-heading heading-light">
+                <h2 class="title">Get in touch with us</h2>
+                <a href="tel:{{contact.phone_number}}" class="axil-btn btn-sm btn-fill-red">Contact Now</a>
+            </div>
+        </div>
+        <ul class="list-unstyled shape-group-9">
+            <li class="shape shape-2"><img src="{% static 'website/media/others/bubble-16.png' %}" alt="Comments"></li>
+            <li class="shape shape-3"><img src="{% static 'website/media/others/bubble-13.png' %}" alt="Comments"></li>
+            <li class="shape shape-4"><img src="{% static 'website/media/others/bubble-14.png' %}" alt="Comments"></li>
+            <li class="shape shape-5"><img src="{% static 'website/media/others/bubble-16.png' %}" alt="Comments"></li>
+            <li class="shape shape-6"><img src="{% static 'website/media/others/bubble-15.png' %}" alt="Comments"></li>
+            <li class="shape shape-7"><img src="{% static 'website/media/others/bubble-16.png' %}" alt="Comments"></li>
+        </ul>
+</section>
+
+
 <!--=====================================-->
 <!--=       Why Choose Area Start       =-->
 <!--=====================================-->
@@ -261,64 +320,6 @@
             </div>
         </div>
     </div>
-</section>
-
-<!--=====================================-->
-<!--=        Counter Up Area Start      =-->
-<!--=====================================-->
-<section class="section section-padding bg-color-dark">
-    <div class="container">
-        <div class="section-heading heading-light">
-            <span class="subtitle">Our Stats</span>
-            <h2 class="title">Our Stats Speak Louder</h2>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-12" data-sal="slide-up" data-sal-duration="800" data-sal-delay="100">
-                <div class="counterup-progress active">
-                    <div class="icon">
-                        <img src="{% static 'website/media/icon/icon-7.png' %}" alt="Apple">
-                    </div>
-                    <div class="count-number h2">
-                        <span class="number count"
-                            data-count="{{stats.years_of_operation}}">{{stats.years_of_operation}}</span>
-                        <span class="symbol">+</span>
-                    </div>
-                    <h6 class="title">Years of operation</h6>
-                </div>
-            </div>
-            <div class="col-lg-4 col-12" data-sal="slide-up" data-sal-duration="800" data-sal-delay="200">
-                <div class="counterup-progress">
-                    <div class="icon">
-                        <img src="{% static 'website/media/icon/icon-8.png' %}" alt="Apple">
-                    </div>
-                    <div class="count-number h2">
-                        <span class="number count" data-count="{{stats.students}}">{{stats.students}}</span>
-                        <span class="symbol">+</span>
-                    </div>
-                    <h6 class="title">Students</h6>
-                </div>
-            </div>
-            <div class="col-lg-4 col-12" data-sal="slide-up" data-sal-duration="800" data-sal-delay="300">
-                <div class="counterup-progress">
-                    <div class="icon">
-                        <img src="{% static 'website/media/icon/icon-9.png' %}" alt="Apple">
-                    </div>
-                    <div class="count-number h2">
-                        <span class="number count" data-count="{{stats.instructors}}">{{stats.instructors}}</span>
-                        <span class="symbol">+</span>
-                    </div>
-                    <h6 class="title">Experienced Instructors</h6>
-                </div>
-            </div>
-        </div>
-    </div>
-    <ul class="list-unstyled shape-group-10">
-        <li class="shape shape-1"><img src="{% static 'website/media/others/line-9.png' %}" alt="Circle"></li>
-        <li class="shape shape-2"><img src="{% static 'website/media/others/bubble-42.png' %}" alt="Circle">
-        </li>
-        <li class="shape shape-3"><img src="{% static 'website/media/others/bubble-43.png' %}" alt="Circle">
-        </li>
-    </ul>
 </section>
 
 <!--=====================================-->
@@ -388,128 +389,6 @@
         </ul>
 </section>
 
-<!--=====================================-->
-<!--=    Instructors  Area Start        =-->
-<!--=====================================-->
-<section class="section section-padding bg-color-dark pb--70 pb_lg--20 pb_md--0">
-    <div class="container">
-        <div class="section-heading heading-light">
-            <span class="subtitle">Our assets</span>
-            <h2 class="title mb--50">Meet Our Top Instructors</h2>
-        </div>
-        <div class="row">
-            <div class="col-xl-3 col-sm-6">
-                <div class="team-grid">
-                    <div class="thumbnail">
-                        <a href="#">
-                            <img src="{% static 'website/media/team/team-1.png' %}" alt="Team Member">
-                        </a>
-                    </div>
-                    <div class="content">
-                        <h4 class="title"><a href="#">Savannah Nguyen</a></h4>
-                        <span class="designation">USA</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6">
-                <div class="team-grid">
-                    <div class="thumbnail">
-                        <a href="#">
-                            <img src="{% static 'website/media/team/team-2.png' %}" alt="Team Member">
-                        </a>
-                    </div>
-                    <div class="content">
-                        <h4 class="title"><a href="#">Savannah Nguyen</a></h4>
-                        <span class="designation">USA</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6">
-                <div class="team-grid">
-                    <div class="thumbnail">
-                        <a href="#">
-                            <img src="{% static 'website/media/team/team-3.png' %}" alt="Team Member">
-                        </a>
-                    </div>
-                    <div class="content">
-                        <h4 class="title"><a href="#">Savannah Nguyen</a></h4>
-                        <span class="designation">USA</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6">
-                <div class="team-grid">
-                    <div class="thumbnail">
-                        <a href="#">
-                            <img src="{% static 'website/media/team/team-4.png' %}" alt="Team Member">
-                        </a>
-                    </div>
-                    <div class="content">
-                        <h4 class="title"><a href="#">Savannah Nguyen</a></h4>
-                        <span class="designation">USA</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6">
-                <div class="team-grid">
-                    <div class="thumbnail">
-                        <a href="#">
-                            <img src="{% static 'website/media/team/team-5.png' %}" alt="Team Member">
-                        </a>
-                    </div>
-                    <div class="content">
-                        <h4 class="title"><a href="#">Savannah Nguyen</a></h4>
-                        <span class="designation">USA</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6">
-                <div class="team-grid">
-                    <div class="thumbnail">
-                        <a href="#">
-                            <img src="{% static 'website/media/team/team-6.png' %}" alt="Team Member">
-                        </a>
-                    </div>
-                    <div class="content">
-                        <h4 class="title"><a href="#">Savannah Nguyen</a></h4>
-                        <span class="designation">USA</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6">
-                <div class="team-grid">
-                    <div class="thumbnail">
-                        <a href="#">
-                            <img src="{% static 'website/media/team/team-7.png' %}" alt="Team Member">
-                        </a>
-                    </div>
-                    <div class="content">
-                        <h4 class="title"><a href="#">Savannah Nguyen</a></h4>
-                        <span class="designation">USA</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6">
-                <div class="team-grid">
-                    <div class="thumbnail">
-                        <a href="#">
-                            <img src="{% static 'website/media/team/team-8.png' %}" alt="Team Member">
-                        </a>
-                    </div>
-                    <div class="content">
-                        <h4 class="title"><a href="#">Savannah Nguyen</a></h4>
-                        <span class="designation">USA</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <ul class="list-unstyled shape-group-10">
-        <li class="shape shape-1"><img src="{% static 'website/media/others/circle-1.png' %}" alt="Circle"></li>
-        <li class="shape shape-2"><img src="{% static 'website/media/others/line-3.png' %}" alt="Circle"></li>
-        <li class="shape shape-3"><img src="{% static 'website/media/others/bubble-5.png' %}" alt="Circle"></li>
-    </ul>
-</section>
 
 
 {% endblock body %}

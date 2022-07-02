@@ -1,0 +1,77 @@
+{% extends 'website/base.html' %} {% load static %}
+
+
+{% block title %} Customer Reviews {% endblock title %}
+
+
+
+{% block body %}
+
+<!--=====================================-->
+<!--=       Breadcrumb Area Start       =-->
+<!--=====================================-->
+<div class="breadcrum-area breadcrumb-banner">
+    <div class="container">
+        <div class="section-heading heading-left" data-sal="slide-right" data-sal-duration="1000" data-sal-delay="300">
+            <h1 class="title h2">Customer Reviews</h1>
+            <p>Thsi is what our customers say about us</p>
+        </div>
+    </div>
+    <ul class="shape-group-8 list-unstyled">
+        <li class="shape shape-2" data-sal="slide-left" data-sal-duration="500" data-sal-delay="200"
+            style="margin-top: -200px">
+            <img src="{% static  'website/media/others/bubble-21.png' %}" alt="Bubble">
+        </li>
+        <li class="shape shape-1" data-sal="slide-right" data-sal-duration="500" data-sal-delay="100">
+            <img src="{% static 'website/media/others/bubble-9.png' %}" alt="Bubble">
+        </li>
+        <li class="shape shape-3" data-sal="slide-up" data-sal-duration="500" data-sal-delay="300">
+            <img src="{% static 'website/media/others/line-4.png' %}" alt="Line">
+        </li>
+    </ul>
+</div>
+
+
+
+<!--=====================================-->
+<!--=       FAQs Area Start       =-->
+<!--=====================================-->
+<section class="section-padding bg-color-white">
+    <div class="container">
+        <div class="row">
+            {% for i in reviews %}
+            <div class=" col-lg-6">
+                <div class="testimonial-grid">
+                    <p>“{{i.review}}”</p>
+                    <div class="author-info">
+                        <div class="thumb">
+
+                            {% if i.image %}
+                            <img src="{{i.image.url}}" alt="Google Review">
+                            {% else %}
+                            <img src="" alt="Review image">
+                            {% endif %}
+
+
+                        </div>
+                        <div class="content">
+                            <span class="name">{{i.client_name}}</span>
+                            <span class="designation">{{i.client_location}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+{% endblock body %}

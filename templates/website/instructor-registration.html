@@ -1,0 +1,183 @@
+{% extends 'website/base.html' %} {% load static %} {% load crispy_forms_tags %} {% load crispy_forms_field %}
+
+
+{% block title %} Be An Instructor {% endblock title %}
+
+
+
+{% block body %}
+
+<script>
+    $(document).ready(function () {
+        $('#id_username').blur();
+        $(window).scrollTop(0);
+    })
+</script>
+
+<!--=====================================-->
+<!--=       Breadcrumb Area Start       =-->
+<!--=====================================-->
+<div class="breadcrum-area breadcrumb-banner">
+    <div class="container">
+        <div class="section-heading heading-left" data-sal="slide-right" data-sal-duration="1000" data-sal-delay="300">
+            <h1 class="title h2">Join us as a driving instructor</h1>
+            <p>Due to higher than expected booking rates, we are now looking for ADI to join our fleet of driving
+                instructors.</p>
+            {% for message in messages %}
+            <div class="alert alert-{{message.tags}} mb-3 mt-3" role="alert" style="width: 50%;">
+                <strong>{{message}}</strong>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <ul class="shape-group-8 list-unstyled">
+        <li class="shape shape-2" data-sal="slide-left" data-sal-duration="500" data-sal-delay="200"
+            style="margin-top: -200px">
+            <img src="{% static  'website/media/others/bubble-21.png' %}" alt="Bubble">
+        </li>
+        <li class="shape shape-1" data-sal="slide-right" data-sal-duration="500" data-sal-delay="100">
+            <img src="{% static 'website/media/others/bubble-9.png' %}" alt="Bubble">
+        </li>
+        <li class="shape shape-3" data-sal="slide-up" data-sal-duration="500" data-sal-delay="300">
+            <img src="{% static 'website/media/others/line-4.png' %}" alt="Line">
+        </li>
+    </ul>
+</div>
+
+
+<!--=====================================-->
+<!--=      Why join us Area Start       =-->
+<!--=====================================-->
+<section class="section section-padding bg-color-dark pb--80 pb_lg--40 pb_md--20">
+    <div class="container">
+        <div class="section-heading heading-light-left mb--100">
+            <h2 class="title">Why join us?</h2>
+        </div>
+        <div class="row">
+
+            {% for i in why_join_us %}
+
+            <div class="col-lg-4">
+                <div class="about-quality active">
+                    <h3 class="sl-number">{{forloop.counter}}</h3>
+                    <h5 class="title">{{i.title|title}}</h5>
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
+    </div>
+    <ul class="list-unstyled shape-group-10">
+        <li class="shape shape-1"><img src="{% static 'website/media/others/circle-1.png' %}" alt="Circle"></li>
+        <li class="shape shape-2"><img src="{% static 'website/media/others/line-3.png' %}" alt="Circle"></li>
+        <li class="shape shape-3"><img src="{% static 'website/media/others/bubble-5.png' %}" alt="Circle"></li>
+    </ul>
+</section>
+
+
+
+<!--=====================================-->
+<!--=      registration  Area Start     =-->
+<!--=====================================-->
+<section class="section section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12">
+                <h2 class="title text-center">Register yourself as an instructor</h2>
+                <div class="contact-form-box shadow-box mb--30">
+
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{form.first_name|as_crispy_field}}
+                            </div>
+                            <div class="col-md-6">
+                                {{form.last_name|as_crispy_field}}
+                            </div>
+                            <div class="col-md-6">
+                                {{form.phone_number|as_crispy_field}}
+                            </div>
+                            <div class="col-md-6">
+                                {{form.email|as_crispy_field}}
+                            </div>
+                            <div class="col-md-4">
+                                {{form.license_number|as_crispy_field}}
+                            </div>
+                            <div class="col-md-4">
+                                {{form.issue_date|as_crispy_field}}
+                            </div>
+                            <div class="col-md-4">
+                                {{form.years_of_experience|as_crispy_field}}
+                            </div>
+                            <div class="col-md-4">
+                                {{form.adi_number|as_crispy_field}}
+                            </div>
+                            <div class="col-md-4">
+                                {{form.adi_expiry_date|as_crispy_field}}
+                            </div>
+                            <div class="col-md-4">
+                                {{form.grade|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                {{form.transmission|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                {{form.car_make|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                {{form.car_brand|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                {{form.car_model|as_crispy_field}}
+                            </div>
+                            <div class="col-md-12">
+                                {{form.address|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                {{form.city|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                {{form.state|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                {{form.zip_code|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                {{form.country|as_crispy_field}}
+                            </div>
+                            <div class="col-md-12">
+                                {{form.image|as_crispy_field}}
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="">
+                                    <h4 class="text-center mt-3 mb-3">Login Credentials</h4>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                {{user_form |crispy}}
+                            </div>
+
+                            <div class="col-md-12 text-right">
+                                <button class="axil-btn btn-fill-red mt-3" type="submit">Submit</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="list-unstyled shape-group-12">
+        <li class="shape shape-1"><img src="{% static 'website/media/others/bubble-2.png' %}" alt="Bubble"></li>
+        <li class="shape shape-2"><img src="{% static 'website/media/others/bubble-1.png' %}" alt="Bubble"></li>
+        <li class="shape shape-3"><img src="{% static 'website/media/others/circle-3.png' %}" alt="Circle"></li>
+    </ul>
+</section>
+
+
+
+
+{% endblock body %}

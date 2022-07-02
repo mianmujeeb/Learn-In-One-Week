@@ -1,0 +1,187 @@
+{% extends 'website/base.html' %} {% load static %} {% load crispy_forms_tags %}
+
+
+{% block title %} Booking {% endblock title %}
+
+
+
+{% block body %}
+
+
+
+<style>
+    .multiselect {
+        width: 100vh
+    }
+
+    .multiselect-container {
+        max-height: 300px;
+        overflow: scroll;
+        width: 50%;
+    }
+</style>
+
+
+<!--=====================================-->
+<!--=      registration  Area Start     =-->
+<!--=====================================-->
+<section class="section section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12">
+                <h1 class="title text-center">Course Registration</h1>
+                <div class="contact-form-box shadow-box mb--30">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="card-header">
+                            <h3 class="text-center mt-4">General Information</h3>
+                        </div>
+                        <div class="card-body px-5 py-5">
+                            <div class="row">
+
+                                <div class="col-md-2">
+                                    {{form.name_prefix | as_crispy_field}}
+                                </div>
+                                <div class="col-md-5">
+                                    {{form.first_name | as_crispy_field}}
+                                </div>
+                                <div class="col-md-5">
+                                    {{form.last_name | as_crispy_field}}
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    {{form.dob|as_crispy_field}}
+                                </div>
+                                <div class="col-md-4">
+                                    {{form.phone|as_crispy_field}}
+                                </div>
+                                <div class="col-md-4">
+                                    {{form.email|as_crispy_field}}
+                                </div>
+                                <div class="col-md-12">
+                                    {{form.address|as_crispy_field}}
+                                </div>
+                                <div class="col-md-4">
+                                    {{form.city|as_crispy_field}}
+                                </div>
+                                <div class="col-md-4">
+                                    {{form.state|as_crispy_field}}
+                                </div>
+                                <div class="col-md-4">
+                                    {{form.zip_code|as_crispy_field}}
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="card-header">
+                            <h3 class="text-center mt-4">Driving Information</h3>
+                        </div>
+                        <div class="card-body px-5 py-5">
+                            <div class="row">
+
+
+                                <div class="col-md-12 mb-3">
+                                    {{form.start_date | as_crispy_field}}
+                                    <small class="text-muted">Choose preferred start date (Our
+                                        Courses begin on a Monday
+                                        & booking must be
+                                        12 weeks in advance Due to DVSA backlog of test) * All bookings are provisional
+                                        start date until confirmed</small>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    {{form.previous_experience | as_crispy_field}}
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    {{form.driving_license_number | as_crispy_field}}
+                                    <small class="text-muted">Enter the first 16 characters of your licence</small>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    {{form.course_type | as_crispy_field}}
+                                    <small class="text-muted">Please select the typr of course you want to
+                                        choose</small>
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <label for="">Courses*</label>
+                                    <div class="form-group">
+                                        <select class="form-control" id="id_courses" multiple="multiple" name="courses"
+                                            required>
+
+                                            {% for i in courses %}
+                                            <option value="{{i.id}}" data-rice="{{i.advance_deposit}}">{{i}}</option>
+                                            {% endfor %}
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" name="fast_track_test"
+                                                id="id_fast_track_test" value="1">
+                                            <strong>Do you want a Fast Tracked Practical test?</strong>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" name="learning_difficulty"
+                                                id="id_learning_difficulty" value="1">
+                                            <strong>Do you have any learning difficulties?</strong>
+                                        </label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12 text-right">
+                            <button class="axil-btn btn-fill-red mt-3" type="submit" style="width:100%">Submit</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="list-unstyled shape-group-12">
+        <li class="shape shape-1"><img src="{% static 'website/media/others/bubble-2.png' %}" alt="Bubble"></li>
+        <li class="shape shape-2"><img src="{% static 'website/media/others/bubble-1.png' %}" alt="Bubble"></li>
+        <li class="shape shape-3"><img src="{% static 'website/media/others/circle-3.png' %}" alt="Circle"></li>
+    </ul>
+</section>
+
+
+
+
+<script>
+    $(document).ready(function () {
+        var date = $('#id_start_date').val();
+
+        $('#id_courses').multiselect({
+            includeSelectAllOption: true,
+            enableFiltering: true,
+            buttonContainer: '<div class="w-100"/>'
+        });
+
+        $('#id_start_date').on('change', function () {
+            var input = $('#id_start_date').val();
+
+            if (input < date) {
+                alert('You cannot choose a date before ', date)
+                $('#id_start_date').val(date)
+            }
+        })
+    })
+</script>
+
+
+{% endblock body %}

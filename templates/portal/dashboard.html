@@ -1,0 +1,186 @@
+{% extends 'portal/base.html' %} {% load static %}
+
+
+{% block title %} Dashboard {% endblock title %}
+
+
+{% block body %}
+
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="page-title">Dashboard</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+{% for message in messages %}
+<div class="alert alert-{{message.tags}}" role="alert"><strong>{{message}}</strong>
+</div>
+{% endfor %}
+
+<div class="row">
+
+    <!-- Monthly sale report of current month  -->
+    <div class="col-xl-6">
+        <div class="card-box">
+            <h4 class="header-title mb-3">Monthly Sales Report of {% now 'Y' %}</h4>
+            <canvas id="monthlyReport"></canvas>
+
+            <script>
+                var dataURL = "";
+                $.ajax({
+                    method: 'GET',
+                    url: dataURL,
+                    success: function (data) {
+                        var ctx = document.getElementById('monthlyReport').getContext('2d');
+                        var myChart = new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: data.labels,
+                                datasets: [{
+                                    label: "Total Sale",
+                                    data: data.sales,
+                                    fill: false,
+                                    backgroundColor: '#1f9371',
+                                    borderColor: '#1f9371',
+                                    borderWidth: 2,
+                                    tension: 0
+
+                                }]
+                            },
+                            options: {
+                                legend: {
+                                    display: false,
+                                },
+                                animation: false,
+                            }
+                        });
+                    }
+                });
+            </script>
+        </div>
+    </div>
+
+    <!-- yearly sales report chart  -->
+    <div class="col-xl-6">
+        <div class="card-box">
+            <h4 class="header-title mb-3">Yearly Sales Report of Last 5 Years</h4>
+            <canvas id="yearlyReport"></canvas>
+        </div>
+        <script>
+            var dataURL = "";
+            $.ajax({
+                method: 'GET',
+                url: dataURL,
+                success: function (data) {
+                    var ctx = document.getElementById('yearlyReport').getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: data.labels,
+                            datasets: [{
+                                label: "Total Sale",
+                                data: data.sales,
+                                fill: false,
+                                backgroundColor: '#1f9371',
+                                borderColor: '#1f9371',
+                                borderWidth: 2,
+                                tension: 0
+
+                            }]
+                        },
+                        options: {
+                            legend: {
+                                display: false,
+                            },
+                            animation: false,
+                        }
+                    });
+                }
+            });
+        </script>
+    </div>
+
+
+    <!-- Recent Appointments -->
+    <div class="col-xl-8">
+        <div class="card-box">
+            <h4 class="header-title mb-3">Recent Appointments</h4>
+
+            {% if appointments|length %}
+            <div class="table-responsive" style="height:300px; overflow:scroll">
+                <table class="table table-sm">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th class="text-center">View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for i in appointments %}
+                        <tr>
+                            <td scope="row">{{forloop.counter}}</td>
+                            <td>{{i.name}}</td>
+                            <td>{{i.email}}</td>
+                            <td>{{i.phone}}</td>
+                            <td class="text-center">
+                                <a href="{% url 'portal:view-appointment' i.id %}" class="text-primary mr-1"><i
+                                        class="fas fa-eye"></i></a>
+
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <!-- Appointments Pie Chart -->
+    <div class="col-xl-4">
+        <div class="card-box">
+            <h4 class="header-title mb-3">Appointments Ratio</h4>
+            <canvas id="appointmentsRatio"></canvas>
+        </div>
+
+        <script>
+            new Chart(document.getElementById("appointmentsRatio"), {
+                "type": "pie",
+                "data": {
+                    "labels": ["Paid", "Unpaid"],
+                    "datasets": [{
+                        "label": "Inquiries Status",
+                        "data": ['{{confirmed_appointments}}', '{{unconfirmed_appointments}}'],
+                        "backgroundColor": ["#1f9371", "#1f7371"]
+                    }]
+                }
+            });
+        </script>
+
+    </div>
+
+</div>
+<!-- end row -->
+
+
+
+{% endblock body %}

@@ -10,14 +10,11 @@
 <!--=====================================-->
 <!--=       Breadcrumb Area Start       =-->
 <!--=====================================-->
-<div class="breadcrum-area breadcrumb-banner" style="margin-top: -200px">
+<div class="breadcrum-area breadcrumb-banner">
     <div class="container">
         <div class="section-heading heading-left" data-sal="slide-right" data-sal-duration="1000" data-sal-delay="300">
-            <h1 class="title h2">Our Territories</h1>
-            <p>Find a One Week Intensive Driving Course Near You</p>
-        </div>
-        <div class="banner-thumbnail" data-sal="slide-up" data-sal-duration="1000" data-sal-delay="400">
-            <img class="paralax-image" src="{% static  'website/media/banner/.png' %}" alt="">
+            <h1 class="title h2">Areas We Cover</h1>
+            <p>These are the areas that we are operational in</p>
         </div>
     </div>
     <ul class="shape-group-8 list-unstyled">
@@ -25,23 +22,25 @@
             style="margin-top: -200px">
             <img src="{% static  'website/media/others/bubble-21.png' %}" alt="Bubble">
         </li>
-        <li class="shape shape-3" data-sal="slide-up" data-sal-duration="500" data-sal-delay="300"
-            style="margin-top: -200px">
-            <img src="{% static  'website/media/others/line-4.png' %}" alt="Line">
+        <li class="shape shape-1" data-sal="slide-right" data-sal-duration="500" data-sal-delay="100">
+            <img src="{% static 'website/media/others/bubble-9.png' %}" alt="Bubble">
+        </li>
+        <li class="shape shape-3" data-sal="slide-up" data-sal-duration="500" data-sal-delay="300">
+            <img src="{% static 'website/media/others/line-4.png' %}" alt="Line">
         </li>
     </ul>
 </div>
 
 
 <!--=====================================-->
-<!--=        Territories Area Start         =-->
+<!--=        Territories Area Start     =-->
 <!--=====================================-->
 <section class="section section-padding">
     <div class="container">
         <div class="row">
 
             {% for i in territories %}
-            <div class="col-lg-4" data-sal="slide-up" data-sal-duration="800" data-sal-delay="100">
+            <div class=" col-lg-4" data-sal="slide-up" data-sal-duration="800" data-sal-delay="100">
                 <div class="pricing-table pricing-borderd">
                     <div class="pricing-header">
                         <h3 class="title">{{i.name}}</h3>
@@ -53,7 +52,7 @@
                             {% for j in cities %}
 
                             {% if j.coverage_area.id == i.id %}
-                            <li>{{j.name}}</li>
+                            <li><i class="fa fa-check mr-1"></i> {{j.name}}</li>
                             {% endif %}
 
                             {% endfor %}

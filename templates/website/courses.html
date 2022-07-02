@@ -10,14 +10,11 @@
 <!--=====================================-->
 <!--=       Breadcrumb Area Start       =-->
 <!--=====================================-->
-<div class="breadcrum-area breadcrumb-banner" style="margin-top: -200px">
+<div class="breadcrum-area breadcrumb-banner">
     <div class="container">
         <div class="section-heading heading-left" data-sal="slide-right" data-sal-duration="1000" data-sal-delay="300">
-            <h1 class="title h2">Our Courses</h1>
-            <p>We are offering some of the best courses in town</p>
-        </div>
-        <div class="banner-thumbnail" data-sal="slide-up" data-sal-duration="1000" data-sal-delay="400">
-            <img class="paralax-image" src="{% static  'website/media/banner/.png' %}" alt="">
+            <h1 class="title h2">Courses</h1>
+            <p>Following are the courses that we offer</p>
         </div>
     </div>
     <ul class="shape-group-8 list-unstyled">
@@ -25,9 +22,11 @@
             style="margin-top: -200px">
             <img src="{% static  'website/media/others/bubble-21.png' %}" alt="Bubble">
         </li>
-        <li class="shape shape-3" data-sal="slide-up" data-sal-duration="500" data-sal-delay="300"
-            style="margin-top: -200px">
-            <img src="{% static  'website/media/others/line-4.png' %}" alt="Line">
+        <li class="shape shape-1" data-sal="slide-right" data-sal-duration="500" data-sal-delay="100">
+            <img src="{% static 'website/media/others/bubble-9.png' %}" alt="Bubble">
+        </li>
+        <li class="shape shape-3" data-sal="slide-up" data-sal-duration="500" data-sal-delay="300">
+            <img src="{% static 'website/media/others/line-4.png' %}" alt="Line">
         </li>
     </ul>
 </div>
@@ -38,13 +37,26 @@
 <!--=====================================-->
 <section class="section section-padding-equal pt--200 pt_md--80 pt_sm--60 bg-light">
     <div class="container">
+
+        <div class="pricing-billing-duration">
+            <ul>
+                <li class="nav-item">
+                    <button class="nav-link active" id="yearly-plan-btn" type="button">Manual Course</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="monthly-plan-btn" type="button">
+                        Auto Course</button>
+                </li>
+            </ul>
+        </div>
+
         <div class="axil-isotope-wrapper">
             <div class="isotope-button isotope-project-btn">
 
                 <button data-filter="*" class="is-checked"><span class="filter-text">All Courses</span></button>
                 {% for i in courses_categories %}
 
-                <button data-filter=".{{i.id}}"><span class="filter-text">{{i.name}}</span></button>
+                <button data-filter=" .{{i.id}}"><span class="filter-text">{{i.name}}</span></button>
 
                 {% endfor %}
 
@@ -52,35 +64,41 @@
 
             <div class="row row-35 isotope-list">
 
+
                 {% for i in courses %}
                 <div class="col-md-4 project {{i.category.id}}">
                     {% if forloop.counter == 1 %}
-                    <div class="pricing-table active pricing-">
+                    <div class="pricing-table active">
                         {% else %}
-                        <div class="pricing-table pricing-">
+                        <div class="pricing-table">
                             {% endif %}
                             <div class="pricing-header">
                                 <h3 class="title">{{i.name}}</h3>
+                                <h6 class="title">From</h6>
                                 <div class="price-wrap">
                                     <div class="yearly-pricing">
-                                        <span class="amount mb-4">${{i.price_manual}}</span>
-                                        <span class="duration mb-4">/Manual</span>
-                                        <br>
-                                        <span class="amount">${{i.price_auto}}</span>
-                                        <span class="duration">/Auto</span>
+                                        <span class="amount">£{{i.price_manual}}</span>
+                                        <span class="duration">Manual</span>
+                                    </div>
+                                    <div class="monthly-pricing">
+                                        <span class="amount">£{{i.price_auto}}</span>
+                                        <span class="duration">Auto</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="pricing-body" style="height:500px; overflow: scroll; padding: 10px 10px">
-                                <p class="detail">
-                                    {{i.description|safe}}
-                                </p>
+                            <div class="pricing-body" style="height:500px; overflow: scroll">
+                                <div>
+                                    <p class="detail">
+                                        {{i.description|safe}}
+                                    </p>
+                                </div>
+
 
                             </div>
                             <div class="pricing-btn text-center mt-3">
                                 <a href="#" class="axil-btn btn-fill-red btn-sm btn-borderd">Pay
-                                    {{i.advance_deposit}} to start</a>
+                                    £{{i.advance_deposit}} to start</a>
                             </div>
                         </div>
                     </div>

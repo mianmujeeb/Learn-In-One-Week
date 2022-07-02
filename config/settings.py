@@ -44,9 +44,11 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'crispy_forms',
     'django_filters',
+    "crispy_bootstrap5",
     
     #APPs
     'website.apps.WebsiteConfig',
+    'portal.apps.PortalConfig',
 ]
 
 MIDDLEWARE = [
@@ -153,7 +155,8 @@ JAZZMIN_SETTINGS = {
 
 
 # Crispy forms bootstrap pack 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 
 # CKEditor Config 
@@ -168,3 +171,23 @@ CKEDITOR_CONFIGS = {
         'width': 'full',
     },
 }
+
+
+
+#SMTP Configurations
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST='mail.learninoneweek.co.uk'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+EMAIL_USE_TLS = False
+EMAIL_HOST_USER = 'noha@learninoneweek.co.uk'
+EMAIL_HOST_PASSWORD = 'APRIL2022'
+
+ADMIN_EMAIL = "jerry7455740@gmail.com"
+SUPPORT_EMAIL = "noha@learninoneweek.co.uk"
+DEFAULT_FROM_EMAIL = ADMIN_EMAIL
+SERVER_EMAIL = ADMIN_EMAIL
+
+
+

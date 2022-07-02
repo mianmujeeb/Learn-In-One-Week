@@ -1,0 +1,177 @@
+{% extends 'portal/base.html' %} {% load static %} {% load crispy_forms_tags %}
+
+{% block title %} {{instance.first_name}} {{instance.first_name}} {% endblock title %}
+
+
+{% block body %}
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="page-title">Registrations</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{% url 'portal:dashboard' %}"> Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'portal:registrations' %}"> Registrations</a></li>
+                    <li class="breadcrumb-item active">{{instance.first_name}} {{instance.first_name}}</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="container">
+            <div class="panel-body">
+                <div class="clearfix">
+                    <div class="text-left">
+                        <img src="{{general_info.logo.url}}" style="max-height:150px">
+                    </div>
+
+                </div>
+
+                <table class="table table-borderless">
+                    <tbody>
+                        <tr>
+                            <th>Payment Status :</th>
+                            <td>
+
+                                {% if status == 1 %}
+                                <span class="badge badge-danger">{{instance.get_status_display}} </span>
+                                {% else %}
+                                <span class="badge badge-success">{{instance.get_status_display}} </span>
+                                {% endif %}
+
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Name :</th>
+                            <td>{{instance.first_name}} {{instance.last_name}}</td>
+                        </tr>
+                        <tr>
+                            <th>Phone Number :</th>
+                            <td>{{instance.phone}}</td>
+                        </tr>
+                        <tr>
+                            <th>Email :</th>
+                            <td>{{instance.email}}</td>
+                        </tr>
+                        <tr>
+                            <th>Date of birth :</th>
+                            <td>{{instance.dob}}</td>
+                        </tr>
+                        <tr>
+                            <th>Date of birth :</th>
+                            <td>{{instance.dob}}</td>
+                        </tr>
+                        <tr>
+                            <th>Driving License Number :</th>
+                            <td>{{instance.driving_license_number}}</td>
+                        </tr>
+                        <tr>
+                            <th>Driving License Number :</th>
+                            <td>{{instance.driving_license_number}}</td>
+                        </tr>
+                        <tr>
+                            <th>Learning Difficulty :</th>
+                            <td>
+
+                                {% if instance.learning_difficulty %}
+                                Yes
+                                {% else %}
+                                No
+                                {% endif %}
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Fast Track Test :</th>
+                            <td>
+
+                                {% if instance.fast_track_test %}
+                                Yes
+                                {% else %}
+                                No
+                                {% endif %}
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Start Date :</th>
+                            <td>
+                                {{instance.start_date}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Course Type :</th>
+                            <td>
+                                {{instance.get_course_type_display}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Pevios Driving Experience :</th>
+                            <td>
+                                {{instance.get_previous_experience_display}}
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <th>Address :</th>
+                            <td>{{instance.address}}</td>
+                        </tr>
+                        <tr>
+                            <th>City :</th>
+                            <td>{{instance.city}}</td>
+                        </tr>
+                        <tr>
+                            <th>State :</th>
+                            <td>{{instance.state}}</td>
+                        </tr>
+                        <tr>
+                            <th>Zip Code :</th>
+                            <td>{{instance.zip_code}}</td>
+                        </tr>
+                        <tr>
+                            <th>Intial Deposit :</th>
+                            <td>£{{instance.total_initial_deposit}}</td>
+                        </tr>
+                        <tr>
+                            <th>Courses :</th>
+                            <td>
+
+                                {% for i in instance.related_courses.all %}
+
+                                {% if forloop.last %}
+                                {{i.course}}
+                                {% else %}
+                                {{i.course}},
+                                {% endif %}
+
+
+                                {% endfor %}
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock body %}

@@ -18,9 +18,6 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-    <!-- ======== Fontawesome CDN ======= -->
-    <script src="https://kit.fontawesome.com/6aa1b41185.js" crossorigin="anonymous"></script>
-    <script src="https://use.fontawesome.com/45ba448a8e.js"></script>
 
 
     <!-- ======== Bootstrap CDN ======= -->
@@ -36,6 +33,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
+
+    <link rel="stylesheet" href="{% static 'website/css/bootstrap-multiselect.css' %}" type="text/css">
+    <script type="text/javascript" src="{% static 'website/js/bootstrap-multiselect.js' %}"></script>
 
     <link rel="stylesheet" href="{% static 'website/css/vendor/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/vendor/font-awesome.css' %}">
@@ -64,8 +64,20 @@
 
         /* Handle */
         ::-webkit-scrollbar-thumb {
-            background: grey;
+            background: #f4503a;
             border-radius: 10px;
+        }
+
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
         }
     </style>
 
@@ -88,7 +100,7 @@
         <header class="header axil-header header-style-1">
             <div id="axil-sticky-placeholder"></div>
             <div class="axil-mainmenu">
-                <div class="container">
+                <div class="container-fluid px-5">
                     <div class="header-navbar">
                         <div class="header-logo">
                             <a href="{% url 'website:home' %}"><img class="light-version-logo" src="{{i.logo.url}}"
@@ -113,10 +125,12 @@
                                     </div>
                                 </div>
                                 <ul class="mainmenu">
-                                    <li><a href="{% url 'website:courses' %}">Courses</a> </li>
+                                    <li><a href="{% url 'website:home' %}">Home</a> </li>
+                                    <li><a href="{% url 'website:courses' %}">Courses & Prices</a> </li>
+                                    <li><a href="{% url 'website:territories' %}">Areas We Cover</a></li>
+                                    <li><a href="{% url 'website:reviews' %}">Customer Reviews</a></li>
                                     <li><a href="{% url 'website:faqs' %}">FAQs</a></li>
-                                    <li><a href="{% url 'website:territories' %}">Our Territories</a></li>
-                                    <li><a href="#">Be An Instructor</a></li>
+                                    <li><a href="{% url 'website:instructor-registration' %}">Be An Instructor</a></li>
                                     <li><a href="{% url 'website:contact' %}">Contact Us</a></li>
                                 </ul>
                             </nav>
@@ -124,14 +138,6 @@
                         </div>
                         <div class="header-action">
                             <ul class="list-unstyled">
-                                <li class="sidemenu-btn d-lg-block d-none">
-                                    <button class="btn-wrap" data-bs-toggle="offcanvas"
-                                        data-bs-target="#offcanvasMenuRight">
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                    </button>
-                                </li>
                                 <li class="mobile-menu-btn sidemenu-btn d-lg-none d-block">
                                     <button class="btn-wrap" data-bs-toggle="offcanvas"
                                         data-bs-target="#mobilemenu-popup">
@@ -153,23 +159,67 @@
         <!--=====================================-->
         <!--=        Footer Area Start       	=-->
         <!--=====================================-->
-        <footer class="footer-area">
+        <footer class="footer-area bg-color-light">
             <div class="container">
+                <div class="footer-top">
+                    <div class="footer-social-link mt-5">
+                        <ul class="list-unstyled">
+
+                            {% for i in social_links %}
+                            <li><a href="{{i.link}}" data-sal="slide-up" data-sal-duration="500" data-sal-delay="100"><i
+                                        class="fab fa-{{i.name|lower}}"></i></a></li>
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-main">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-5" data-sal="slide-right" data-sal-duration="800"
+                            data-sal-delay="100">
+                            <div class="footer-widget border-end">
+                                <div class="footer-newsletter">
+                                    <img src="{{i.logo.url}}" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-7" data-sal="slide-left" data-sal-duration="800"
+                            data-sal-delay="100">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="footer-widget">
+                                        <div class="footer-menu-link">
+                                            <ul class="list-unstyled">
+                                                <li><a href="{% static 'website:courses' %}">Courses and Prices</a></li>
+                                                <li><a href="{% static 'website:territories' %}">Areas we cover</a></li>
+                                                <li><a href="#">Our Instructoes</a></li>
+                                                <li><a href="{% static 'website:faqs' %}">FAQs</a></li>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="footer-widget">
+                                        <div class="footer-menu-link">
+                                            <ul class="list-unstyled">
+                                                <li><a href="{% url 'website:contact' %}">Contact</a></li>
+                                                <li><a href="#">Privacy Policy</a></li>
+                                                <li><a href="#">Terms of Use</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="footer-bottom" data-sal="slide-up" data-sal-duration="500" data-sal-delay="100">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="footer-copyright">
-                                <span class="copyright-text">© {% now 'Y'  %}. All rights reserved by <a
-                                        href="https://mmsstudio.tech">MMS Studio</a>.</span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="footer-bottom-link">
-                                <ul class="list-unstyled">
-                                    <li><a href="#">Contact Us</a></li>
-                                    <li><a href="#">Privacy Policy</a></li>
-                                    <li><a href="#">Terms of Use</a></li>
-                                </ul>
+                                <span class="copyright-text">© {% now 'Y' %}. All rights reserved by <a
+                                        href="https://mmsstudio.tech/">MMS Studio</a>.</span>
                             </div>
                         </div>
                     </div>
@@ -188,9 +238,11 @@
                 <div class="row mt-5">
                     <div class="col-lg-5 col-xl-6">
                         <ul class="main-navigation list-unstyled">
-                            <li><a href="{% url 'website:courses' %}">Courses</a></li>
+                            <li><a href="{% url 'website:courses' %}">Home</a></li>
+                            <li><a href="{% url 'website:courses' %}">Courses & Prices</a></li>
+                            <li><a href="{% url 'website:territories' %}">Areas We Cover</a></li>
+                            <li><a href="{% url 'website:reviews' %}">Customer Reviews</a></li>
                             <li><a href="{% url 'website:faqs' %}">FAQs</a></li>
-                            <li><a href="{% url 'website:territories' %}">Our Teritories</a></li>
                             <li><a href="{% url 'website:contact' %}">Contact Us</a></li>
                         </ul>
                     </div>
@@ -234,7 +286,6 @@
 
 
     <!-- Jquery Js -->
-    <script src="{% static 'website/js/vendor/jquery-3.6.0.min.js' %}"></script>
     <script src="{% static 'website/js/vendor/bootstrap.min.js' %}"></script>
     <script src="{% static 'website/js/vendor/isotope.pkgd.min.js' %}"></script>
     <script src="{% static 'website/js/vendor/imagesloaded.pkgd.min.js' %}"></script>

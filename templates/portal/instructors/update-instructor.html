@@ -1,0 +1,215 @@
+{% extends 'portal/base.html' %} {% load static %} {% load crispy_forms_tags %}
+
+{% block title %} {{instance.first_name}} {{instance.last_name}} {% endblock title %}
+
+
+{% block body %}
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="page-title">{{instance.first_name}} {{instance.last_name}}</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{% url 'portal:dashboard' %}"> Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'portal:instructors' %}"> Instructor</a></li>
+                    <li class="breadcrumb-item active">{{instance.first_name}} {{instance.last_name}}</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="card">
+    <div class="card-body">
+        <h2 class="d-inline">{{instance.first_name}} {{instance.last_name}}</h2>
+    </div>
+</div>
+
+{% for message in messages %}
+<div class="alert alert-{{message.tags}}" role="alert"><strong>{{message}}</strong>
+</div>
+{% endfor %}
+
+
+<div class="row">
+
+    <div class="col-xl-4">
+        <!-- Profile picture card-->
+        <div class="card mb-4 mb-xl-0">
+            <div class="card-header">Instructor's Picture</div>
+            <div class="card-body text-center">
+                <!-- Profile picture image-->
+
+                {% if instance.image %}
+                <img class="img-account-profile rounded-circle mb-2" src="{{instance.image.url}}" height="300">
+                {% else %}
+                <img class="img-account-profile rounded-circle mb-2" src="" alt="Profile Image">
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-8">
+        <!-- Account details card-->
+        <div class="card mb-4">
+            <div class="card-header">Instructor Details</div>
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="">First Name:</label>
+                            <input type="text" name="" id="" class="form-control" value="{{instance.first_name}}"
+                                readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="">Last Name:</label>
+                            <input type="text" name="" id="" class="form-control" value="{{instance.last_name}}"
+                                readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="">Phone Number:</label>
+                            <input type="text" name="" id="" class="form-control" value="{{instance.phone_number}}"
+                                readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="">Email:</label>
+                            <input type="text" name="" id="" class="form-control" value="{{instance.email}}" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">License Number:</label>
+                            <input type="text" name="" id="" class="form-control" value="{{instance.license_number}}"
+                                readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">Issue Date:</label>
+                            <input type="text" name="" id="" class="form-control" value="{{instance.issue_date}}"
+                                readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">Years of experience:</label>
+                            <input type="text" name="" id="" class="form-control"
+                                value="{{instance.years_of_experience}}" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">ADI Number:</label>
+                            <input type="text" name="" id="" class="form-control" value="{{instance.adi_number}}"
+                                readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">Expiry Date:</label>
+                            <input type="text" name="" id="" class="form-control" value="{{instance.expiry_date}}"
+                                readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">Grade:</label>
+                            <input type="text" name="" id="" class="form-control" value="{{instance.grade}}" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="">First Name:</label>
+                            <input type="text" name="" id="" class="form-control" value="{{instance.first_name}}"
+                                readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="">Car Make:</label>
+                            <input type="text" name="" id="" class="form-control" value="{{instance.car_make}}"
+                                readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="">Car Brand:</label>
+                            <input type="text" name="" id="" class="form-control" value="{{instance.car_brand}}"
+                                readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="">Car Model:</label>
+                            <input type="text" name="" id="" class="form-control" value="{{instance.car_model}}"
+                                readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">Address:</label>
+                            <input type="text" name="" id="" class="form-control" value="{{instance.address}}" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="">City:</label>
+                            <input type="text" name="" id="" class="form-control" value="{{instance.city}}" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="">State:</label>
+                            <input type="text" name="" id="" class="form-control" value="{{instance.state}}" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="">Zip Code:</label>
+                            <input type="text" name="" id="" class="form-control" value="{{instance.zip_code}}"
+                                readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="">Country:</label>
+                            <input type="text" name="" id="" class="form-control" value="{{instance.country}}" readonly>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card card-body">
+            <form method="POST">
+                {% csrf_token %}
+
+                {% if instance.status == 1 %}
+
+                <button class="btn btn-success btn-lg btn-block" type="submit" name="approve">Approve</button>
+
+                {% else %}
+
+                <button class="btn btn-danger btn-lg btn-block" type="submit" name="unapprove">Revoke Account</button>
+
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}

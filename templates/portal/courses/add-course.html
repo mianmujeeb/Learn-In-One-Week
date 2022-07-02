@@ -1,0 +1,93 @@
+{% extends 'portal/base.html' %} {% load static %} {% load crispy_forms_tags %} {% load crispy_forms_field %}
+
+
+{% block title %} Add Course {% endblock title %}
+
+
+{% block body %}
+
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="page-title">Add Course</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{% url 'portal:dashboard' %}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'portal:courses' %}">Courses</a></li>
+                    <li class="breadcrumb-item active">Add Course</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+<div class="card">
+    <div class="card-body">
+        <h2 class="d-inline">Add Course</h2>
+    </div>
+</div>
+
+{% for message in messages %}
+<div class="alert alert-{{message.tags}}" role="alert"><strong>{{message}}</strong>
+</div>
+{% endfor %}
+
+<form method="POST">
+    {% csrf_token %}
+
+    <div class="row">
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    {{form.media}}
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{form.status|as_crispy_field}}
+                        </div>
+                        <div class="col-md-6">
+                            {{form.category|as_crispy_field}}
+                        </div>
+                        <div class="col-md-9">
+                            {{form.name|as_crispy_field}}
+                        </div>
+                        <div class="col-md-3">
+                            {% crispy_addon form.hours append="Hrs" %}
+                        </div>
+                        <div class="col-md-4">
+                            {% crispy_addon form.price_auto prepend="£" append=".00" %}
+                        </div>
+                        <div class="col-md-4">
+                            {% crispy_addon form.price_manual prepend="£" append=".00" %}
+                        </div>
+                        <div class="col-md-4">
+                            {% crispy_addon form.advance_deposit prepend="£" append=".00" %}
+                        </div>
+                        <div class="col-md-12">
+                            {{form.description|as_crispy_field}}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card card-body">
+                <button type="submit" class="btn btn-primary btn-block">Save</button>
+                <a href="{% url 'portal:courses' %}" class="btn btn-secondary btn-block">Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $(".django-ckeditor-widget").css("width", "100%")
+    });
+</script>
+
+{% endblock body %}

@@ -75,6 +75,11 @@ class CoverageAreaAdmin(admin.ModelAdmin):
     ]
     
     
+@admin.register(Benifit)
+class BenifitAdmin(admin.ModelAdmin):
+    list_display = ('title',) 
+
+    
 @admin.register(FAQ)
 class FAQAdmin(admin.ModelAdmin):
     list_display = ('question',)
@@ -86,16 +91,11 @@ class WhyUsAdmin(admin.ModelAdmin):
     list_display = ('title',)
     
     
-    
-@admin.register(Stats)
-class StatsAdmin(admin.ModelAdmin):
+@admin.register(WhyJoinUs)
+class WhyJoinUsAdmin(admin.ModelAdmin):
 
-    list_display = ('years_of_operation', 'students', 'instructors')
+    list_display = ('title',)
     
-    def has_add_permission(self, request, obj=None):
-        return False
-    def has_delete_permission(self, request, obj=None):
-        return False
 
 
 

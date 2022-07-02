@@ -1,0 +1,40 @@
+{% extends 'website/base.html' %} {% load static %} {% load crispy_forms_tags %}
+
+
+{% block title %} Make Payment {% endblock title %}
+
+
+
+{% block body %}
+
+
+<!--=====================================-->
+<!--=      registration  Area Start     =-->
+<!--=====================================-->
+<section class="section section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12">
+                <h1 class="title text-center">Payment</h1>
+                <div class="contact-form-box shadow-box mb--30">
+
+                    <div class="text-center">
+                        <img src="{% static 'portal/images/paid.png' %}" style="max-height:150px">
+                        <h5 class="text-success mt-4">Already paid</h5>
+                        <a href="{% url 'website:home' %}" class="axil-btn btn-fill-red"><i class="fa fa-home mr-1"></i>
+                            Home</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="list-unstyled shape-group-12">
+        <li class="shape shape-1"><img src="{% static 'website/media/others/bubble-2.png' %}" alt="Bubble"></li>
+        <li class="shape shape-2"><img src="{% static 'website/media/others/bubble-1.png' %}" alt="Bubble"></li>
+        <li class="shape shape-3"><img src="{% static 'website/media/others/circle-3.png' %}" alt="Circle"></li>
+    </ul>
+</section>
+
+
+{% endblock body %}

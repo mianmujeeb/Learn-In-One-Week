@@ -1,0 +1,306 @@
+{% extends 'website/base.html' %} {% load static %} {% load crispy_forms_tags %}
+
+
+{% block title %} Make Payment {% endblock title %}
+
+
+
+{% block body %}
+
+<script src="https://js.stripe.com/v3/"></script>
+
+<style type="text/css">
+    /**
+     * The CSS shown here will not be introduced in the Quickstart guide, but shows
+     * how you can use CSS to style your Element's container.
+     */
+    .form-control {
+        box-sizing: border-box;
+
+        height: 40px;
+
+        padding: 10px 12px;
+
+        border: 1px solid transparent;
+        border-radius: 4px;
+        background-color: white;
+
+        box-shadow: 0 1px 3px 0 #e6ebf1;
+        -webkit-transition: box-shadow 150ms ease;
+        transition: box-shadow 150ms ease;
+    }
+
+
+    .StripeElement {
+        box-sizing: border-box;
+
+        height: 40px;
+
+        padding: 10px 12px;
+
+        border: 1px solid transparent;
+        border-radius: 4px;
+        background-color: white;
+
+        box-shadow: 0 1px 3px 0 #e6ebf1;
+        -webkit-transition: box-shadow 150ms ease;
+        transition: box-shadow 150ms ease;
+    }
+
+    .StripeElement--focus {
+        box-shadow: 0 1px 3px 0 #cfd7df;
+    }
+
+    .StripeElement--invalid {
+        border-color: #fa755a;
+    }
+
+    .StripeElement--webkit-autofill {
+        background-color: #fefde5 !important;
+    }
+</style>
+
+<!--=====================================-->
+<!--=      registration  Area Start     =-->
+<!--=====================================-->
+<section class="section section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12">
+                <h1 class="title text-center">Payment</h1>
+
+                {% for message in messages %}
+                <div class="alert alert-{{message.tags}} mb-3 text-center" role="alert" style="border-radius: 50px">
+                    <strong>{{message}}</strong>
+                </div>
+                {% endfor %}
+
+                <div class="row">
+
+                    <div class="col-lg-8">
+                        <div class="contact-form-box shadow-box mb--30">
+                            <div class="card-body">
+                                <div class="panel-body">
+                                    <div class="clearfix">
+                                        <div class="float-left">
+                                            <img src="{{i.logo.url}}" style="max-height:80px">
+                                        </div>
+                                        <div class="float-right">
+                                            <p>Registartion ID <br>
+                                                <strong>{{instance.registration_id}}</strong>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            <div class="float-left">
+                                                <h4>From:</h4>
+                                                <address>
+                                                    <strong>{{i.title}}</strong><br>
+                                                    {{contact.address}}<br>
+                                                    {{contact.state}}, {{contact.city}}, {{contact.zip_code}},
+                                                    {{contact.country}}<br>
+                                                    <strong>Phone:</strong> {{contact.phone_number}}<br>
+                                                    <strong>Email:</strong> {{contact.email}}
+                                                </address>
+                                            </div>
+                                            <div class="float-right">
+                                                <h4>To:</h4>
+                                                <address>
+                                                    <strong>{{instance.name_prefix}}
+                                                        {{instance.first_name|title}}
+                                                        {{instance.last_name|title}}</strong><br>
+                                                    {{instance.address}}<br>
+                                                    {{instance.state}}, {{instance.city}},
+                                                    {{instance.zip_code}},
+                                                    {{instance.country}}<br>
+                                                    <strong>Phone:</strong> {{instance.phone_number}}<br>
+                                                    <strong>Email:</strong> {{instance.email}}
+                                                </address>
+                                            </div>
+                                        </div><!-- end col -->
+                                    </div>
+                                    <!-- end row -->
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table mt-4">
+                                                    <thead>
+                                                        <tr>
+                                                            <th width="90%">Courses</th> Details</th>
+                                                            <th class="text-right">Bill</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        {% for i in instance.related_courses.all %}
+                                                        <tr>
+                                                            <td>
+                                                                {{i.course.name}}
+                                                            </td>
+                                                            <td class="text-right">
+                                                                £{{i.course.advance_deposit}}
+                                                            </td>
+                                                        </tr>
+                                                        {% endfor %}
+
+                                                        <tr>
+                                                            <td><strong>Totla Initial Deposit</strong></td>
+                                                            <td class="text-right">
+                                                                <strong> £{{instance.total_initial_deposit}} </strong>
+                                                            </td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+
+                        <div class="contact-form-box shadow-box mb--30">
+                            <div class="text-ceneter">
+                                <h5 class="mt-4">Make Payment</h5>
+                            </div>
+                            <div class="card-body">
+                                <form action="{% url 'website:charge' %}" method="post" id="payment-form">
+                                    {% csrf_token %}
+
+
+                                    <input type="hidden" name="reg_id" value="{{instance.registration_id}}">
+                                    <div class="form-group">
+                                        <input class="form-control" type="email" required type="text" name="email"
+                                            value="{{instance.email}}" readonly>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" required type="text" name="nickname"
+                                            value="{{instance.first_name}} {{instance.last_name}}" readonly>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div id="card-element">
+                                            <!-- A Stripe Element will be inserted here. -->
+                                        </div>
+
+                                        <!-- Used to display form errors. -->
+                                        <div id="card-errors" role="alert"></div>
+                                    </div>
+
+                                    <div style="clear:left"></div>
+                                    <hr>
+
+                                    <button class="axil-btn btn-fill-red" style="width: 100%" type="submit">
+                                        Pay</button>
+                                    <!-- <a href="" class="btn btn-secondary btn-block text-white"
+                                            type="submit">Cancel</a> -->
+
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <ul class="list-unstyled shape-group-12">
+        <li class="shape shape-1"><img src="{% static 'website/media/others/bubble-2.png' %}" alt="Bubble"></li>
+        <li class="shape shape-2"><img src="{% static 'website/media/others/bubble-1.png' %}" alt="Bubble"></li>
+        <li class="shape shape-3"><img src="{% static 'website/media/others/circle-3.png' %}" alt="Circle"></li>
+    </ul>
+</section>
+
+
+
+<script>
+    var public_key = '{{stripe_public_key}}'
+    // Create a Stripe.
+    var stripe = Stripe(public_key);
+
+    // Create an instance of Elements.
+    var elements = stripe.elements();
+
+    // Custom styling can be passed to options when creating an Element.
+    // (Note that this demo uses a wider set of styles than the guide below.)
+    var style = {
+        base: {
+            color: '#32325d',
+            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+            fontSmoothing: 'antialiased',
+            fontSize: '16px',
+            '::placeholder': {
+                color: '#aab7c4'
+            }
+        },
+        invalid: {
+            color: '#fa755a',
+            iconColor: '#fa755a'
+        }
+    };
+
+    // Create an instance of the card Element.
+    var card = elements.create('card', {
+        style: style
+    });
+
+    // Add an instance of the card Element into the `card-element` <div>.
+    card.mount('#card-element');
+
+    // Handle real-time validation errors from the card Element.
+    card.addEventListener('change', function (event) {
+        var displayError = document.getElementById('card-errors');
+        if (event.error) {
+            displayError.textContent = event.error.message;
+        } else {
+            displayError.textContent = '';
+        }
+    });
+
+    // Handle form submission.
+    var form = document.getElementById('payment-form');
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        stripe.createToken(card).then(function (result) {
+            if (result.error) {
+                // Inform the user if there was an error.
+                var errorElement = document.getElementById('card-errors');
+                errorElement.textContent = result.error.message;
+            } else {
+                // Send the token to your server.
+                stripeTokenHandler(result.token);
+            }
+        });
+    });
+
+    // Submit the form with the token ID.
+    function stripeTokenHandler(token) {
+        // Insert the token ID into the form so it gets submitted to the server
+        var form = document.getElementById('payment-form');
+        var hiddenInput = document.createElement('input');
+        hiddenInput.setAttribute('type', 'hidden');
+        hiddenInput.setAttribute('name', 'stripeToken');
+        hiddenInput.setAttribute('value', token.id);
+        form.appendChild(hiddenInput);
+
+        // Submit the form
+        form.submit();
+    }
+</script>
+
+
+{% endblock body %}

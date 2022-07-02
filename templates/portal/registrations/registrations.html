@@ -1,0 +1,122 @@
+{% extends 'portal/base.html' %} {% load static %} {% load crispy_forms_tags %}
+
+{% block title %} Registrations {% endblock title %}
+
+
+{% block body %}
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="page-title">Registrations</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{% url 'portal:dashboard' %}"> Dashboard</a></li>
+                    <li class="breadcrumb-item active">Registrations</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="card">
+    <div class="card-body">
+        <h2 class="d-inline">Registrations</h2>
+    </div>
+</div>
+
+{% for message in messages %}
+<div class="alert alert-{{message.tags}}" role="alert"><strong>{{message}}</strong>
+</div>
+{% endfor %}
+
+<div class="card card-body">
+
+    {% if registrations|length %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Deposit</th>
+                    <th class="text-center">Status</th>
+
+                    <th class="text-center">View</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for i in registrations %}
+                <tr>
+                    <td scope="row">{{forloop.counter}}</td>
+                    <td>{{i.first_name}} {{i.last_name}}</td>
+                    <td>{{i.phone}}</td>
+                    <td>{{i.email}}</td>
+                    <td>£ {{i.total_initial_deposit}}</td>
+                    <td class="text-center">
+
+                        {% if i.status == 1 %}
+                        <span class="badge badge-danger">{{i.get_status_display}}</span>
+                        {% else %}
+                        <span class="badge badge-success">{{i.get_status_display}}</span>
+                        {% endif %}
+
+                    </td>
+                    <td class="text-center">
+                        <a href="{% url 'portal:view-registration' i.registration_id %}"
+                            class="btn btn-primary btn-sm">View</a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+    {% else %}
+
+    <div class="card-header text-center">
+        <h4>No record found</h4>
+    </div>
+
+    {% endif %}
+
+</div>
+
+<div class="card card-body">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="Page navigation" style="float:right">
+                <ul class="pagination">
+                    {% if registrations.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ registrations.previous_page_number }}"
+                            aria-label="Previous"><span aria-hidden="true">«</span><span
+                                class="sr-only">Previous</span></a>
+                    </li>
+                    {% endif %}
+                    {% for i in registrations.paginator.page_range %}
+                    {% if registrations.number == i %}
+                    <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if registrations.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ registrations.next_page_number }}"
+                            aria-label="Next"><span aria-hidden="true">»</span><span class="sr-only">Next</span></a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
